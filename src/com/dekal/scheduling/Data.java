@@ -1,6 +1,6 @@
 package com.dekal.scheduling;
 
-import com.dekal.scheduling.domain.*;
+import com.dekal.scheduling.entity.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

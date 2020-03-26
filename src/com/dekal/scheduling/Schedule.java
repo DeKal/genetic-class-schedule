@@ -1,7 +1,7 @@
 package com.dekal.scheduling;
 
-import com.dekal.scheduling.domain.*;
-import com.dekal.scheduling.domain.Class;
+import com.dekal.scheduling.entity.*;
+import com.dekal.scheduling.entity.Class;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,5 +91,9 @@ public class Schedule {
         }
         stringBuilder.append(classes.get(classes.size() - 1));
         return stringBuilder.toString();
+    }
+
+    public Data getData() {
+        return data;
     }
 }

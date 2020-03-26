@@ -2,7 +2,7 @@ package com.dekal.scheduling;
 
 import java.util.List;
 import java.util.stream.IntStream;
-import com.dekal.scheduling.domain.Class;
+import com.dekal.scheduling.entity.Class;
 
 public class GeneticAlgorithm {
     Data data;

@@ -1,4 +1,4 @@
-package com.dekal.scheduling.domain;
+package com.dekal.scheduling.entity;
 
 public class MeetingTime {
     private String id;
