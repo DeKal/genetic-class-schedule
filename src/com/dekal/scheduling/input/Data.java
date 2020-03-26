@@ -1,4 +1,4 @@
-package com.dekal.scheduling;
+package com.dekal.scheduling.input;
 
 import com.dekal.scheduling.entity.*;
 

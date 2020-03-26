@@ -1,4 +1,6 @@
-package com.dekal.scheduling;
+package com.dekal.scheduling.algo;
+
+import com.dekal.scheduling.input.Data;
 
 import java.util.ArrayList;
 import java.util.List;

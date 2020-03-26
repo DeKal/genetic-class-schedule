@@ -1,5 +1,6 @@
-package com.dekal.scheduling;
+package com.dekal.scheduling.algo;
 
+import com.dekal.scheduling.input.Data;
 import com.dekal.scheduling.entity.*;
 import com.dekal.scheduling.entity.Class;
 

@@ -1,6 +1,9 @@
 package com.dekal.scheduling;
 
-import com.dekal.scheduling.utils.Printer;
+import com.dekal.scheduling.algo.GeneticAlgorithm;
+import com.dekal.scheduling.algo.Population;
+import com.dekal.scheduling.input.Data;
+import com.dekal.scheduling.printer.Printer;
 
 public class Driver {
     public final static int POPULATION_SIZE = 9;

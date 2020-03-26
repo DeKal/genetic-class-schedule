@@ -1,10 +1,10 @@
-package com.dekal.scheduling.utils;
+package com.dekal.scheduling.format;
 
-import com.dekal.scheduling.Schedule;
+import com.dekal.scheduling.algo.Schedule;
 
 import java.util.stream.IntStream;
 
-class Formatter {
+public class Formatter {
 
     static final String SEPARATOR = " | ";
     static String space(int num) {
@@ -23,7 +23,7 @@ class Formatter {
         return stringBuilder.toString();
     }
 
-    static String getGenerationHeader() {
+    public static String getGenerationHeader() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Schedule #");
         stringBuilder.append(SEPARATOR);
@@ -37,7 +37,7 @@ class Formatter {
         return stringBuilder.toString();
     }
 
-    static String getScheduleSummary(Schedule schedule, int scheduleNum) {
+    public static String getScheduleSummary(Schedule schedule, int scheduleNum) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(space(4));
         stringBuilder.append(scheduleNum);
@@ -51,7 +51,7 @@ class Formatter {
         return stringBuilder.toString();
     }
 
-    static String getScheduleHeader() {
+    public static String getScheduleHeader() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\n");
         stringBuilder.append(space(21));
@@ -70,7 +70,7 @@ class Formatter {
         return stringBuilder.toString();
     }
 
-    static String getBigEndLine() {
+    public static String getBigEndLine() {
         return hyphen(180);
     }
 }

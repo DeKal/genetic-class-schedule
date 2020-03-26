@@ -1,8 +1,10 @@
-package com.dekal.scheduling.utils;
+package com.dekal.scheduling.printer;
 
-import com.dekal.scheduling.Data;
-import com.dekal.scheduling.Population;
-import com.dekal.scheduling.Schedule;
+import com.dekal.scheduling.format.ClassFormatter;
+import com.dekal.scheduling.format.Formatter;
+import com.dekal.scheduling.input.Data;
+import com.dekal.scheduling.algo.Population;
+import com.dekal.scheduling.algo.Schedule;
 import com.dekal.scheduling.entity.*;
 import com.dekal.scheduling.entity.Class;
 

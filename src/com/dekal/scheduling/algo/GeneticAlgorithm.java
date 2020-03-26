@@ -1,7 +1,10 @@
-package com.dekal.scheduling;
+package com.dekal.scheduling.algo;
 
 import java.util.List;
 import java.util.stream.IntStream;
+
+import com.dekal.scheduling.input.Data;
+import com.dekal.scheduling.Driver;
 import com.dekal.scheduling.entity.Class;
 
 public class GeneticAlgorithm {
