@@ -1,41 +1,90 @@
 package com.dekal.scheduling.input;
 
-import com.dekal.scheduling.entity.Room;
+import com.dekal.scheduling.entity.*;
 
-import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Reader {
-    private static final String COMMA_DELIMITER = ",";
+    private static final String ROOM_FILE = "rooms.csv";
+    private static final String MT_FILE = "meeting-times.csv";
+    private static final String INSTRUCTOR_FILE = "instructors.csv";
+    private static final String COURSE_FILE = "courses.csv";
+    private static final String DEPT_FILE = "departments.csv";
 
-    private File getFileFromResources(String fileName) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL resource = classLoader.getResource(fileName);
-        if (resource == null) {
-            throw new IllegalArgumentException("file is not found!");
-        } else {
-            return new File(resource.getFile());
-        }
+    private ReaderUtils readerUtils = new ReaderUtils();
+
+    public List<Room> readRoom() {
+        List<Room> rooms = new ArrayList<>();
+        List<List<String>> records = readerUtils.read(ROOM_FILE);
+        records.forEach(rows -> {
+            String number = rows.get(0);
+            int seats = Integer.parseInt(rows.get(1));
+            rooms.add(new Room(number, seats));
+        });
+        return rooms;
     }
 
-    public List<List<String>> read(String fileName) {
-        File file = getFileFromResources(fileName);
-        List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(COMMA_DELIMITER);
-                records.add(Arrays.asList(values));
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public List<MeetingTime> readMeetingTime() {
+        List<MeetingTime> meetingTimes = new ArrayList<>();
+        List<List<String>> records = readerUtils.read(MT_FILE);
+        records.forEach(rows -> {
+            String id = rows.get(0);
+            String time = rows.get(1);
+            meetingTimes.add(new MeetingTime(id, time));
+        });
 
-        return records;
+        return meetingTimes;
+    }
+
+    public List<Instructor> readInstructor() {
+        List<Instructor> instructors = new ArrayList<>();
+        List<List<String>> records = readerUtils.read(INSTRUCTOR_FILE);
+        records.forEach(rows -> {
+            String id = rows.get(0);
+            String name = rows.get(1);
+            instructors.add(new Instructor(id, name));
+        });
+
+        return instructors;
+    }
+
+    public List<Course> readCourses(List<Instructor> instructors) {
+        List<Course> courses = new ArrayList<>();
+        List<List<String>> records = readerUtils.read(COURSE_FILE);
+        records.forEach(rows -> {
+            String number = rows.get(0);
+            String name = rows.get(1);
+            int maxStudents = Integer.parseInt(rows.get(2));
+
+            List<Instructor> courseInstructors = new ArrayList<>();
+            int pos = 3;
+            while (pos < rows.size()) {
+                int instructorPos = Integer.parseInt(rows.get(pos));
+                courseInstructors.add(instructors.get(instructorPos - 1));
+                pos++;
+            }
+            courses.add(new Course(number, name, maxStudents, courseInstructors));
+        });
+
+        return courses;
+    }
+
+
+    public List<Department> readDepartments(List<Course> courses) {
+        List<Department> department = new ArrayList<>();
+        List<List<String>> records = readerUtils.read(DEPT_FILE);
+        records.forEach(rows -> {
+            String name = rows.get(0);
+            List<Course> departmentCourses = new ArrayList<>();
+            int pos = 1;
+            while (pos < rows.size()) {
+                int coursePos = Integer.parseInt(rows.get(pos));
+                departmentCourses.add(courses.get(coursePos - 1));
+                pos++;
+            }
+            department.add(new Department(name, departmentCourses));
+        });
+        return department;
     }
 }
