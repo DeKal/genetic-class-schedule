@@ -1,6 +1,6 @@
 package com.dekal.scheduling.entity;
 
-public class MeetingTime  implements HasToFullString {
+public class MeetingTime implements HasToFullString {
     private String id;
     private String time;
 

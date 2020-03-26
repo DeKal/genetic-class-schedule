@@ -2,7 +2,7 @@
 *.class
 /out
 /.idea
-*.iml
+.DS_Store
 
 # Log file
 *.log
