@@ -15,7 +15,7 @@ public class Schedule {
     private double fitness = -1;
     private boolean isFitnessChanged = true;
 
-    public Schedule(Data data) {
+    Schedule(Data data) {
         this.data = data;
         classes = new ArrayList<>(data.getNumClasses());
     }
@@ -25,7 +25,7 @@ public class Schedule {
         return list.get(randomListItem);
     }
 
-    public Schedule init() {
+    Schedule init() {
         new ArrayList<>(data.getDepartments()).forEach(department -> {
             department.getCourses().forEach(course -> {
                 Class newClass = new Class(classNum++, department, course);

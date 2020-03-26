@@ -5,7 +5,7 @@ import com.dekal.scheduling.entity.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Reader {
+class Reader {
     private static final String ROOM_FILE = "rooms.csv";
     private static final String MT_FILE = "meeting-times.csv";
     private static final String INSTRUCTOR_FILE = "instructors.csv";
@@ -14,7 +14,7 @@ public class Reader {
 
     private ReaderUtils readerUtils = new ReaderUtils();
 
-    public List<Room> readRoom() {
+    List<Room> readRoom() {
         List<Room> rooms = new ArrayList<>();
         List<List<String>> records = readerUtils.read(ROOM_FILE);
         records.forEach(rows -> {
@@ -25,7 +25,7 @@ public class Reader {
         return rooms;
     }
 
-    public List<MeetingTime> readMeetingTime() {
+    List<MeetingTime> readMeetingTime() {
         List<MeetingTime> meetingTimes = new ArrayList<>();
         List<List<String>> records = readerUtils.read(MT_FILE);
         records.forEach(rows -> {
@@ -37,7 +37,7 @@ public class Reader {
         return meetingTimes;
     }
 
-    public List<Instructor> readInstructor() {
+    List<Instructor> readInstructor() {
         List<Instructor> instructors = new ArrayList<>();
         List<List<String>> records = readerUtils.read(INSTRUCTOR_FILE);
         records.forEach(rows -> {
@@ -49,7 +49,7 @@ public class Reader {
         return instructors;
     }
 
-    public List<Course> readCourses(List<Instructor> instructors) {
+    List<Course> readCourses(List<Instructor> instructors) {
         List<Course> courses = new ArrayList<>();
         List<List<String>> records = readerUtils.read(COURSE_FILE);
         records.forEach(rows -> {
@@ -71,7 +71,7 @@ public class Reader {
     }
 
 
-    public List<Department> readDepartments(List<Course> courses) {
+    List<Department> readDepartments(List<Course> courses) {
         List<Department> department = new ArrayList<>();
         List<List<String>> records = readerUtils.read(DEPT_FILE);
         records.forEach(rows -> {

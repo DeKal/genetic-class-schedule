@@ -20,15 +20,8 @@ public class Population {
     }
 
     public Population sortByFitness() {
-        schedules.sort((schedule1, schedule2) -> {
-            if (schedule1.getFitness() > schedule2.getFitness()) {
-                return -1;
-            }
-            if (schedule1.getFitness() < schedule2.getFitness()) {
-                return 1;
-            }
-            return 0;
-        });
+        schedules.sort((schedule1, schedule2) ->
+                Double.compare(schedule2.getFitness(), schedule1.getFitness()));
 
         return this;
     }

@@ -17,7 +17,7 @@ public class Printer {
         System.out.println(text);
     }
 
-    public void printEndLine() {
+    private void printEndLine() {
         println(Formatter.getBigEndLine());
     }
 
@@ -50,25 +50,23 @@ public class Printer {
     }
 
     private final String generationHeader = Formatter.getGenerationHeader();
-    public void printGenerationHeader(int generationNumber) {
+    private void printGenerationHeader(int generationNumber) {
         println("> Generation # " + generationNumber);
         printEndLine();
         println(generationHeader);
         printEndLine();
     }
 
-    public void printPopulationSchedules(List<Schedule> schedules) {
+    private void printPopulationSchedules(List<Schedule> schedules) {
         int scheduleNo = 0;
-        ListIterator<Schedule> scheduleIterator = schedules.listIterator();
-        while (scheduleIterator.hasNext()) {
-            Schedule schedule = scheduleIterator.next();
+        for (Schedule schedule : schedules) {
             String scheduleSummary = Formatter.getScheduleSummary(schedule, scheduleNo);
             println(scheduleSummary);
             scheduleNo++;
         }
     }
 
-    public void printSchedule(Schedule schedule, int generation) {
+    private void printSchedule(Schedule schedule, int generation) {
         printScheduleHeader();
 
         List<Class> classes = schedule.getClasses();
@@ -87,9 +85,7 @@ public class Printer {
 
     private void printClasses(List<Class> classes) {
         int classNo = 1;
-        ListIterator<Class> classIterator = classes.listIterator();
-        while (classIterator.hasNext()) {
-            Class classInfo = classIterator.next();
+        for (Class classInfo : classes) {
             printClass(classNo, classInfo);
             classNo++;
         }

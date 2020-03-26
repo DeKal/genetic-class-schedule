@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ReaderUtils {
+class ReaderUtils {
     private static final String COMMA_DELIMITER = ",";
 
     private File getFileFromResources(String fileName) {
@@ -19,7 +19,7 @@ public class ReaderUtils {
         }
     }
 
-    public List<List<String>> read(String fileName) {
+    List<List<String>> read(String fileName) {
         File file = getFileFromResources(fileName);
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

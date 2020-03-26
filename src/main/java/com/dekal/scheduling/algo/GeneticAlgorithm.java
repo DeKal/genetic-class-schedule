@@ -8,7 +8,7 @@ import com.dekal.scheduling.Driver;
 import com.dekal.scheduling.entity.Class;
 
 public class GeneticAlgorithm {
-    Data data;
+    private Data data;
 
     public GeneticAlgorithm(Data data) {
         this.data = data;
