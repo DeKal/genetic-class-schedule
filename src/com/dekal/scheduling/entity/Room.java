@@ -1,6 +1,6 @@
 package com.dekal.scheduling.entity;
 
-public class Room {
+public class Room implements HasToFullString {
     private String number;
     private int seats;
 
@@ -15,5 +15,9 @@ public class Room {
 
     public int getSeats() {
         return seats;
+    }
+
+    public String toFullString() {
+        return "rooms# : " + number + ", max seat: " + seats;
     }
 }

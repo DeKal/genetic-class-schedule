@@ -2,7 +2,7 @@ package com.dekal.scheduling.entity;
 
 import java.util.List;
 
-public class Department {
+public class Department implements HasToFullString{
     private String name;
     private List<Course> courses;
 
@@ -17,5 +17,9 @@ public class Department {
 
     public List<Course> getCourses() {
         return courses;
+    }
+
+    public String toFullString() {
+        return "name: " + name + ", courses: " + courses;
     }
 }

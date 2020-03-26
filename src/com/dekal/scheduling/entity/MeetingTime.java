@@ -1,6 +1,6 @@
 package com.dekal.scheduling.entity;
 
-public class MeetingTime {
+public class MeetingTime  implements HasToFullString {
     private String id;
     private String time;
 
@@ -15,5 +15,9 @@ public class MeetingTime {
 
     public String getTime() {
         return time;
+    }
+
+    public String toFullString() {
+        return "id: " + id + ", time: " + time;
     }
 }

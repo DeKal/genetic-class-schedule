@@ -11,54 +11,51 @@ import java.util.ListIterator;
 
 public class Printer {
 
-    static void print(String text){
-        System.out.print(text);
-    }
-
-    static void println(String text){
+    void println(String text){
         System.out.println(text);
     }
 
-    static public void printEndLine() {
+    public void printEndLine() {
         println(Formatter.getBigEndLine());
     }
 
-    static private final String generationHeader = Formatter.getGenerationHeader();
-    static public void printGenerationHeader(int generationNumber) {
+    private <T extends  HasToFullString>void printData(List<T> objects) {
+        objects.forEach(object -> println(object.toFullString()));
+    }
+    public void printAvailableData(Data data) {
+        println("Available Department => ");
+        printData(data.getDepartments());
+
+        println("Available Courses => ");
+        printData(data.getCourses());
+
+        println("Available Rooms =>");
+        printData(data.getRooms());
+
+        println("Available instructors =>");
+        printData(data.getInstructors());
+
+        println("Available MeetingTimes =>");
+        printData(data.getMeetingTimes());
+
+        printEndLine();
+    }
+
+    public void printPopulation(int generationNumber, Population population) {
+        printGenerationHeader(generationNumber);
+        printPopulationSchedules(population.getSchedules());
+        printSchedule(population.getSchedules().get(0), generationNumber);
+    }
+
+    private final String generationHeader = Formatter.getGenerationHeader();
+    public void printGenerationHeader(int generationNumber) {
         println("> Generation # " + generationNumber);
         printEndLine();
         println(generationHeader);
+        printEndLine();
     }
 
-    static public void printAvailableData(Data data) {
-        System.out.println("Available Department => ");
-        data.getDepartments()
-                .forEach(x -> System.out.println("name: " + x.getName() + ", courses: " + x.getCourses()));
-
-        System.out.println("Available Courses => ");
-        data.getCourses()
-                .forEach(x -> System.out.println("course #: " + x.getNumber() + ", name: " + x.getName() + ", max " +
-                        "student: " + x.getMaxStudents()+ ", instructors: " + x.getInstructors()));
-
-        System.out.println("Available Rooms =>");
-        data.getRooms()
-                .forEach(x -> System.out.println("rooms# : " + x.getNumber() + ", max seat: " + x.getSeats()));
-
-        System.out.println("Available instructors =>");
-        data.getInstructors()
-                .forEach(x -> System.out.println("id: " + x.getId() + " name: " + x.getName()));
-
-        System.out.println("Available MeetingTimes =>");
-        data.getMeetingTimes()
-                .forEach(x -> System.out.println("id: " + x.getId() + ", time: " + x.getTime()));
-
-        System.out.println("----------------------------------------------------");
-        System.out.println("----------------------------------------------------");
-    }
-
-
-
-    public static void printPopulationSchedules(List<Schedule> schedules) {
+    public void printPopulationSchedules(List<Schedule> schedules) {
         int scheduleNo = 0;
         ListIterator<Schedule> scheduleIterator = schedules.listIterator();
         while (scheduleIterator.hasNext()) {
@@ -69,7 +66,7 @@ public class Printer {
         }
     }
 
-    public static void printSchedule(Schedule schedule, int generation) {
+    public void printSchedule(Schedule schedule, int generation) {
         printScheduleHeader();
 
         List<Class> classes = schedule.getClasses();
@@ -81,12 +78,12 @@ public class Printer {
         printEndLine();
     }
 
-    private static void printScheduleHeader() {
+    private void printScheduleHeader() {
         println(Formatter.getScheduleHeader());
         printEndLine();
     }
 
-    private static void printClasses(List<Class> classes) {
+    private void printClasses(List<Class> classes) {
         int classNo = 1;
         ListIterator<Class> classIterator = classes.listIterator();
         while (classIterator.hasNext()) {
@@ -96,12 +93,12 @@ public class Printer {
         }
     }
 
-    private static void printScheduleSolution(int generation) {
+    private void printScheduleSolution(int generation) {
         printEndLine();
         println("> Solution found in " + generation + " generations!");
     }
 
-    private static void printClass(int classNo, Class classInfo) {
+    private void printClass(int classNo, Class classInfo) {
         Department dept = classInfo.getDepartment();
         Course course = classInfo.getCourse();
         Room room = classInfo.getRoom();
@@ -110,12 +107,5 @@ public class Printer {
 
         String classStr = ClassFormatter.format(classNo, dept, course, room, instructor, mt);
         println(classStr);
-    }
-
-    public static void printPopulation(int generationNumber, Population population) {
-        printGenerationHeader(generationNumber);
-        printEndLine();
-        printPopulationSchedules(population.getSchedules());
-        printSchedule(population.getSchedules().get(0), generationNumber);
     }
 }

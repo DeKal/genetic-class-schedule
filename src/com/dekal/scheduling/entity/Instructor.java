@@ -1,6 +1,6 @@
 package com.dekal.scheduling.entity;
 
-public class Instructor {
+public class Instructor implements HasToFullString{
     private String id;
     private String name;
 
@@ -20,5 +20,9 @@ public class Instructor {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String toFullString() {
+        return "id: " + id + " name: " + name;
     }
 }
