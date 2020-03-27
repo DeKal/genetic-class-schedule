@@ -3,13 +3,12 @@ package com.dekal.scheduling.printer;
 import com.dekal.scheduling.format.ClassFormatter;
 import com.dekal.scheduling.format.Formatter;
 import com.dekal.scheduling.input.Data;
-import com.dekal.scheduling.algo.Population;
-import com.dekal.scheduling.algo.Schedule;
+import com.dekal.scheduling.algorithm.Population;
+import com.dekal.scheduling.algorithm.Schedule;
 import com.dekal.scheduling.entity.*;
 import com.dekal.scheduling.entity.Class;
 
 import java.util.List;
-import java.util.ListIterator;
 
 public class Printer {
 

@@ -1,4 +1,4 @@
-package com.dekal.scheduling.algo;
+package com.dekal.scheduling.algorithm;
 
 import com.dekal.scheduling.input.Data;
 import com.dekal.scheduling.entity.*;
@@ -6,6 +6,7 @@ import com.dekal.scheduling.entity.Class;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Schedule {
     private List<Class> classes;
@@ -14,24 +15,25 @@ public class Schedule {
     private int conflictNum = 0;
     private double fitness = -1;
     private boolean isFitnessChanged = true;
+    private SelectAlgorithm selector;
 
-    Schedule(Data data) {
+    Schedule(Data data, SelectAlgorithm selector) {
         this.data = data;
+        this.selector = selector;
+    }
+
+    static Schedule create(Data data, SelectAlgorithm selector) {
+        return new Schedule(data, selector).init();
+    }
+
+    private Schedule init() {
         classes = new ArrayList<>(data.getNumClasses());
-    }
-
-    private <T> T getRandomItem(List<T> list) {
-        int randomListItem = (int) (list.size() * Math.random());
-        return list.get(randomListItem);
-    }
-
-    Schedule init() {
         new ArrayList<>(data.getDepartments()).forEach(department -> {
             department.getCourses().forEach(course -> {
                 Class newClass = new Class(classNum++, department, course);
-                newClass.setInstructor(getRandomItem(data.getInstructors()));
-                newClass.setMeetingTime(getRandomItem(data.getMeetingTimes()));
-                newClass.setRoom(getRandomItem(data.getRooms()));
+                newClass.setInstructor(selector.pickRandom(data.getInstructors()));
+                newClass.setMeetingTime(selector.pickRandom(data.getMeetingTimes()));
+                newClass.setRoom(selector.pickRandom(data.getRooms()));
                 classes.add(newClass);
             });
         });
@@ -81,6 +83,12 @@ public class Schedule {
     public List<Class> getClasses() {
         isFitnessChanged = true;
         return classes;
+    }
+
+    static void assignElite(List<Schedule> targetSchedules, List<Schedule> schedules, int eliteNum) {
+        IntStream.range(0, eliteNum).forEach(elite -> {
+            targetSchedules.set(elite, schedules.get(elite));
+        });
     }
 
     @Override
