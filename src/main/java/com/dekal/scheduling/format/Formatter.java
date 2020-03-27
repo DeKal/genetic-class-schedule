@@ -1,6 +1,6 @@
 package com.dekal.scheduling.format;
 
-import com.dekal.scheduling.algorithm.Schedule;
+import com.dekal.scheduling.entity.Schedule;
 
 import java.util.stream.IntStream;
 

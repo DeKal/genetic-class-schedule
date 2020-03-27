@@ -1,6 +1,7 @@
 package com.dekal.scheduling.algorithm;
 
 import com.dekal.scheduling.config.Config;
+import com.dekal.scheduling.entity.Schedule;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class SelectAlgorithm {
         return isMutate() ? schedule : null;
     }
 
-    <T> T pickRandom(List<T> list) {
+    public <T> T pickRandom(List<T> list) {
         int randomPos = (int) (list.size() * Math.random());
         return list.get(randomPos);
     }

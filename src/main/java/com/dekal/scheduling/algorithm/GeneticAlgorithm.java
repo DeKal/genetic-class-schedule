@@ -4,17 +4,32 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import com.dekal.scheduling.config.Config;
-import com.dekal.scheduling.input.Data;
+import com.dekal.scheduling.entity.Population;
+import com.dekal.scheduling.entity.Schedule;
+import com.dekal.scheduling.factory.PopulationFactory;
 import com.dekal.scheduling.entity.Class;
+import com.dekal.scheduling.factory.ScheduleFactory;
 
 public class GeneticAlgorithm {
-    private Data data;
-    private SelectAlgorithm selector;
 
-    public GeneticAlgorithm(Data data, SelectAlgorithm selector) {
-        this.data = data;
+    private PopulationFactory populationFactory;
+    private ScheduleFactory scheduleFactory;
+    private SelectAlgorithm selector;
+    private PopulationAlgorithm populationAlgo;
+    private ScheduleAlgorithm scheduleAlgo;
+
+    public GeneticAlgorithm(PopulationFactory populationFactory,
+                            ScheduleFactory scheduleFactory,
+                            SelectAlgorithm selector,
+                            PopulationAlgorithm populationAlgo,
+                            ScheduleAlgorithm scheduleAlgo) {
+        this.populationFactory = populationFactory;
+        this.scheduleFactory = scheduleFactory;
         this.selector = selector;
+        this.populationAlgo = populationAlgo;
+        this.scheduleAlgo = scheduleAlgo;
     }
+
 
     public Population evolve(Population population) {
         return mutatePopulation(crossOverPopulation(population));
@@ -25,15 +40,15 @@ public class GeneticAlgorithm {
 
         List<Schedule> normalSchedules = population.getSchedules();
         int scheduleSize = normalSchedules.size();
-        Population crossOverPop = Population.create(scheduleSize, data, selector);
+        Population crossOverPop = populationFactory.create(scheduleSize);
         List<Schedule> crossOverSchedules = crossOverPop.getSchedules();
 
-        Schedule.assignElite(crossOverSchedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
+        scheduleAlgo.assignElite(crossOverSchedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
         IntStream.range(Config.ELITE_SCHEDULE_NUM, scheduleSize)
                 .forEach(index -> {
                     if (Config.CROSSOVER_RATE > Math.random()) {
-                        Schedule schedule1 = population.doTournamentAndGetBestFit(data);
-                        Schedule schedule2 = population.doTournamentAndGetBestFit(data);
+                        Schedule schedule1 = populationAlgo.doTournamentAndGetBestFit(population);
+                        Schedule schedule2 = populationAlgo.doTournamentAndGetBestFit(population);
                         crossOverSchedules.set(index, crossOverSchedule(schedule1, schedule2));
                     } else {
                         crossOverSchedules.set(index, normalSchedules.get(index));
@@ -44,7 +59,7 @@ public class GeneticAlgorithm {
     }
 
     private Schedule crossOverSchedule(Schedule schedule1, Schedule schedule2) {
-        Schedule crossOverSchedule = Schedule.create(data, selector);
+        Schedule crossOverSchedule = scheduleFactory.create();
         List<Class> classes = crossOverSchedule.getClasses();
         int classSize = classes.size();
 
@@ -59,10 +74,10 @@ public class GeneticAlgorithm {
     private Population mutatePopulation(Population population) {
         List<Schedule> normalSchedules = population.getSchedules();
         int scheduleSize = normalSchedules.size();
-        Population mutatePopulation = Population.create(scheduleSize, data, selector);
+        Population mutatePopulation = populationFactory.create(scheduleSize);
         List<Schedule> schedules = mutatePopulation.getSchedules();
 
-        Schedule.assignElite(schedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
+        scheduleAlgo.assignElite(schedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
         IntStream.range(Config.ELITE_SCHEDULE_NUM, scheduleSize)
                 .forEach(x -> {
                     schedules.set(x, mutateSchedule(normalSchedules.get(x)));
@@ -71,7 +86,7 @@ public class GeneticAlgorithm {
     }
 
     private Schedule mutateSchedule(Schedule schedule) {
-        Schedule mutateSchedule = Schedule.create(data, selector);
+        Schedule mutateSchedule = scheduleFactory.create();
         List<Class> classes = mutateSchedule.getClasses();
         int classSize = classes.size();
         IntStream.range(0, classSize).forEach(index -> {
