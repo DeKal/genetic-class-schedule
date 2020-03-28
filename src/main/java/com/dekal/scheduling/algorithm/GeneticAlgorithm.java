@@ -15,26 +15,39 @@ public class GeneticAlgorithm {
     private PopulationFactory populationFactory;
     private ScheduleFactory scheduleFactory;
     private SelectAlgorithm selector;
-    private PopulationAlgorithm populationAlgo;
-    private ScheduleAlgorithm scheduleAlgo;
+    private PopulationAlgorithm populationAlgorithm;
+    private ScheduleAlgorithm scheduleAlgorithm;
+    private int generation;
 
     public GeneticAlgorithm(PopulationFactory populationFactory,
                             ScheduleFactory scheduleFactory,
                             SelectAlgorithm selector,
-                            PopulationAlgorithm populationAlgo,
-                            ScheduleAlgorithm scheduleAlgo) {
+                            PopulationAlgorithm populationAlgorithm,
+                            ScheduleAlgorithm scheduleAlgorithm) {
         this.populationFactory = populationFactory;
         this.scheduleFactory = scheduleFactory;
         this.selector = selector;
-        this.populationAlgo = populationAlgo;
-        this.scheduleAlgo = scheduleAlgo;
+        this.populationAlgorithm = populationAlgorithm;
+        this.scheduleAlgorithm = scheduleAlgorithm;
     }
 
+    public Schedule schedule() {
+        generation = 0;
+        Population population = populationFactory.create(Config.POPULATION_SIZE);
+        populationAlgorithm.sortAndCalcFitness(population);
+
+        while (populationAlgorithm.isFit(population)) {
+            generation++;
+            population = evolve(population);
+            populationAlgorithm.sortAndCalcFitness(population);
+        }
+
+        return populationAlgorithm.getFirstSchedule(population);
+    }
 
     public Population evolve(Population population) {
         return mutatePopulation(crossOverPopulation(population));
     }
-
 
     private Population crossOverPopulation(Population population) {
 
@@ -43,12 +56,12 @@ public class GeneticAlgorithm {
         Population crossOverPop = populationFactory.create(scheduleSize);
         List<Schedule> crossOverSchedules = crossOverPop.getSchedules();
 
-        scheduleAlgo.assignElite(crossOverSchedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
+        scheduleAlgorithm.assignElite(crossOverSchedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
         IntStream.range(Config.ELITE_SCHEDULE_NUM, scheduleSize)
                 .forEach(index -> {
                     if (Config.CROSSOVER_RATE > Math.random()) {
-                        Schedule schedule1 = populationAlgo.doTournamentAndGetBestFit(population);
-                        Schedule schedule2 = populationAlgo.doTournamentAndGetBestFit(population);
+                        Schedule schedule1 = populationAlgorithm.doTournamentAndGetBestFit(population);
+                        Schedule schedule2 = populationAlgorithm.doTournamentAndGetBestFit(population);
                         crossOverSchedules.set(index, crossOverSchedule(schedule1, schedule2));
                     } else {
                         crossOverSchedules.set(index, normalSchedules.get(index));
@@ -77,7 +90,7 @@ public class GeneticAlgorithm {
         Population mutatePopulation = populationFactory.create(scheduleSize);
         List<Schedule> schedules = mutatePopulation.getSchedules();
 
-        scheduleAlgo.assignElite(schedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
+        scheduleAlgorithm.assignElite(schedules, normalSchedules, Config.ELITE_SCHEDULE_NUM);
         IntStream.range(Config.ELITE_SCHEDULE_NUM, scheduleSize)
                 .forEach(x -> {
                     schedules.set(x, mutateSchedule(normalSchedules.get(x)));
@@ -98,4 +111,7 @@ public class GeneticAlgorithm {
         return mutateSchedule;
     }
 
+    public int getGeneration() {
+        return generation;
+    }
 }

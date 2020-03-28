@@ -1,4 +1,4 @@
-package com.dekal.scheduling;
+package com.dekal.scheduling.runner;
 
 import com.dekal.scheduling.algorithm.GeneticAlgorithm;
 import com.dekal.scheduling.algorithm.PopulationAlgorithm;
@@ -11,7 +11,7 @@ import com.dekal.scheduling.factory.ScheduleFactory;
 import com.dekal.scheduling.input.Data;
 import com.dekal.scheduling.printer.Printer;
 
-public class Driver {
+public class RunWithDetailProcess {
     final static Data data = new Data();
     final static Printer printer = new Printer();
     final static SelectAlgorithm selector = new SelectAlgorithm();
@@ -34,12 +34,12 @@ public class Driver {
         int generationNumber = 0;
 
         Population population = populationFactory.create(Config.POPULATION_SIZE);
-        populationAlgorithm.sortByFitness(population);
+        populationAlgorithm.sortAndCalcFitness(population);
         printer.printPopulation(generationNumber, population);
 
         while (populationAlgorithm.isFit(population)) {
             population = algorithm.evolve(population);
-            populationAlgorithm.sortByFitness(population);
+            populationAlgorithm.sortAndCalcFitness(population);
             printer.printPopulation(generationNumber, population);
             generationNumber++;
         }

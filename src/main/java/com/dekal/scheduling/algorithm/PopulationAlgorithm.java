@@ -16,11 +16,22 @@ public class PopulationAlgorithm {
         this.scheduleAlgorithm = scheduleAlgorithm;
     }
 
-    public Population sortByFitness(Population population) {
+    Schedule doTournamentAndGetBestFit(Population population) {
+        List<Schedule> schedules = population.getSchedules();
+        Population tournamentPopulation = populationFactory.createTournament(schedules);
+        return sortAndGetBestFitSchedule(tournamentPopulation);
+    }
+
+    private Schedule sortAndGetBestFitSchedule(Population population) {
+        sortByFitness(population, false);
+        return getFirstSchedule(population);
+    }
+
+    public Population sortAndCalcFitness(Population population) {
         return sortByFitness(population, true);
     }
 
-    public Population sortByFitness(Population population, boolean isForceFitness) {
+    private Population sortByFitness(Population population, boolean isForceFitness) {
         List<Schedule> schedules = population.getSchedules();
         schedules.sort((schedule1, schedule2) -> {
             double schedule1Fitness = scheduleAlgorithm.calcFitness(schedule1, isForceFitness);
@@ -30,18 +41,11 @@ public class PopulationAlgorithm {
         return population;
     }
 
-    private Schedule sortAndGetBestFitSchedule(Population population) {
-        sortByFitness(population, false);
-        return population.getSchedules().get(0);
-    }
-
-    Schedule doTournamentAndGetBestFit(Population population) {
-        List<Schedule> schedules = population.getSchedules();
-        Population tournamentPopulation = populationFactory.createTournament(schedules);
-        return sortAndGetBestFitSchedule(tournamentPopulation);
-    }
-
     public boolean isFit(Population population) {
         return population.getSchedules().get(0).getFitness() != 1.0;
+    }
+
+    Schedule getFirstSchedule(Population population) {
+        return population.getSchedules().get(0);
     }
 }

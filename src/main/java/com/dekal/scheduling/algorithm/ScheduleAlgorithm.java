@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class ScheduleAlgorithm {
     private int conflictNum = -1;
 
-    private int calcConflictNum(Schedule schedule) {
+    private int calcConflicts(Schedule schedule) {
         conflictNum = 0;
         List<Class> classes = schedule.getClasses();
         classes.forEach(curClass -> {
@@ -42,7 +42,7 @@ public class ScheduleAlgorithm {
         if (!isForceFitness && schedule.getConflictNum() >= 0) {
             return schedule.getFitness();
         }
-        int conflictNum = calcConflictNum(schedule);
+        int conflictNum = calcConflicts(schedule);
         double fitness = 1/(double)(conflictNum + 1);
         schedule.setConflictNum(conflictNum);
         schedule.setFitness(fitness);

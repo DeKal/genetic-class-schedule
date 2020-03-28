@@ -63,7 +63,7 @@ public class Printer {
         }
     }
 
-    private void printSchedule(Schedule schedule, int generation) {
+    public void printSchedule(Schedule schedule, int generation) {
         printScheduleHeader();
 
         List<Class> classes = schedule.getClasses();
