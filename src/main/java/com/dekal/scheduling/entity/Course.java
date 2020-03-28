@@ -27,10 +27,6 @@ public class Course implements HasToFullString{
         return maxStudents;
     }
 
-    public List<Instructor> getInstructors() {
-        return instructors;
-    }
-
     @Override
     public String toString() {
         return name;

@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-class ReaderUtils {
+public class ReaderUtils {
     private static final String COMMA_DELIMITER = ",";
 
-    private File getFileFromResources(String fileName) {
+    protected File getFileFromResources(String fileName) throws Exception{
         ClassLoader classLoader = getClass().getClassLoader();
         URL resource = classLoader.getResource(fileName);
         if (resource == null) {
@@ -20,17 +20,16 @@ class ReaderUtils {
     }
 
     List<List<String>> read(String fileName) {
-        File file = getFileFromResources(fileName);
         List<List<String>> records = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        try {
+            File file = getFileFromResources(fileName);
+            BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(COMMA_DELIMITER);
                 records.add(Arrays.asList(values));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

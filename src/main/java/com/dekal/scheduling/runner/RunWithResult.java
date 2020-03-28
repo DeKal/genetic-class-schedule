@@ -15,9 +15,9 @@ public class RunWithResult {
     final static Printer printer = new Printer();
     final static SelectAlgorithm selector = new SelectAlgorithm();
     final static ScheduleFactory scheduleFactory = new ScheduleFactory(data, selector);
-    final static ScheduleAlgorithm scheduleAlgo = new ScheduleAlgorithm();
+    final static ScheduleAlgorithm scheduleAlgorithm = new ScheduleAlgorithm();
     final static PopulationFactory populationFactory = new PopulationFactory(scheduleFactory, selector);
-    final static PopulationAlgorithm populationAlgorithm = new PopulationAlgorithm(populationFactory, scheduleAlgo);
+    final static PopulationAlgorithm populationAlgorithm = new PopulationAlgorithm(populationFactory, scheduleAlgorithm);
 
     public static void main(String[] args) {
 
@@ -28,7 +28,7 @@ public class RunWithResult {
                         scheduleFactory,
                         selector,
                         populationAlgorithm,
-                        scheduleAlgo);
+                        scheduleAlgorithm);
 
         Schedule schedule = algorithm.schedule();
         printer.printSchedule(schedule, algorithm.getGeneration());
