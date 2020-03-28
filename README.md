@@ -41,3 +41,10 @@ id: MT2, time: MFW 10:00 - 11:00
 id: MT3, time: TTH 09:00 - 10:30
 id: MT4, time: TTH 10:30 - 12:00
 ```
+
+## Runners
+### com.dekal.scheduling.runner.RunWithDetailProcess
+- Using this runner to  see all generations.
+
+### com.dekal.scheduling.runner.RunWithResult
+- Using this runner to get the final schedule result.
