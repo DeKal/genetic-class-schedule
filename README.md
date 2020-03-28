@@ -12,6 +12,32 @@ This source code is inspired by
 - Consists of `courses.csv`, `departments.csv`, `instructors.csv`, `meeting-times.csv`,`rooms.csv`
 - *Note:* Should use input with the same length as in CSV files, more will break output format!! (Sorry, the original
  output printing is shitty :( )
+
+## Runners
+### com.dekal.scheduling.runner.RunWithDetailProcess
+- Using this runner to  see all generations.
+ 
+### com.dekal.scheduling.runner.RunWithResult
+- Using this runner to get the final schedule result.
+ 
+ 
+## Runners with Junit
+- Test cases are store in `src/test/com/dekal/scheduling`
+- Test cases are running with JUnit 5
+- Test cases input are stored in `src/test/resources/`
+## Runners
+### com.dekal.scheduling.runner.RunWithDetailProcess
+- Using this runner to  see all generations.
+
+### com.dekal.scheduling.runner.RunWithResult
+- Using this runner to get the final schedule result.
+
+
+## Runners with Junit
+- Test cases are store in `src/test/com/dekal/scheduling`
+- Test cases are running with JUnit 5
+- Test cases input are stored in `src/test/resources/`
+ 
  
 ## Sample input
 ```
@@ -43,15 +69,21 @@ id: MT3, time: TTH 09:00 - 10:30
 id: MT4, time: TTH 10:30 - 12:00
 ```
 
-## Runners
-### com.dekal.scheduling.runner.RunWithDetailProcess
-- Using this runner to  see all generations.
+# Sample Output 
+```
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-### com.dekal.scheduling.runner.RunWithResult
-- Using this runner to get the final schedule result.
+                     Class # | Dept | Course (number, max # of students) | Room (Capacity) | Instructor (Id) | Meeting Time (Id)                        
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                         01  | MATH | C1 (325K, 25)                      | R1 (25)         |     Mr D (T4)   | TTH 09:00 - 10:30 (MT3)                        
+                         02  | MATH | C3 (462K, 25)                      | R1 (25)         |     Mr C (T3)   | MFW 09:00 - 10:00 (MT1)                        
+                         03  |   EE | C2 (319K, 35)                      | R2 (35)         |     Mr B (T2)   | MFW 09:00 - 10:00 (MT1)                        
+                         04  |   EE | C4 (464K, 30)                      | R2 (35)         |     Mr B (T2)   | TTH 09:00 - 10:30 (MT3)                        
+                         05  |   EE | C5 (360C, 35)                      | R3 (45)         |     Mr A (T1)   | TTH 10:30 - 12:00 (MT4)                        
+                         06  |   PH | C6 (303K, 45)                      | R3 (45)         |     Mr A (T1)   | MFW 09:00 - 10:00 (MT1)                        
+                         07  |   PH | C7 (303L, 45)                      | R3 (45)         |     Mr C (T3)   | MFW 10:00 - 11:00 (MT2)                        
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+> Solution found in 17 generations!
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-## Runners with Junit
-- Test cases are store in `src/test/com/dekal/scheduling`
-- Test cases are running with JUnit 5
-- Test cases input are stored in `src/test/resources/`
+```
