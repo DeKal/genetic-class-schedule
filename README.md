@@ -12,28 +12,17 @@ This source code is inspired by
 - Consists of `courses.csv`, `departments.csv`, `instructors.csv`, `meeting-times.csv`,`rooms.csv`
 - *Note:* Should use input with the same length as in CSV files, more will break output format!! (Sorry, the original
  output printing is shitty :( )
-
+ 
 ## Runners
-### com.dekal.scheduling.runner.RunWithDetailProcess
-- Using this runner to  see all generations.
- 
-### com.dekal.scheduling.runner.RunWithResult
-- Using this runner to get the final schedule result.
- 
- 
-## Runners with Junit
-- Test cases are store in `src/test/com/dekal/scheduling`
-- Test cases are running with JUnit 5
-- Test cases input are stored in `src/test/resources/`
-## Runners
-### com.dekal.scheduling.runner.RunWithDetailProcess
+### Normal Runners
+#### com.dekal.scheduling.runner.RunWithDetailProcess
 - Using this runner to  see all generations.
 
-### com.dekal.scheduling.runner.RunWithResult
+#### com.dekal.scheduling.runner.RunWithResult
 - Using this runner to get the final schedule result.
 
 
-## Runners with Junit
+### Runners with Junit
 - Test cases are store in `src/test/com/dekal/scheduling`
 - Test cases are running with JUnit 5
 - Test cases input are stored in `src/test/resources/`
