@@ -5,6 +5,7 @@ This source code is inspired by
 ## Prerequisites
 - Using *Intellij*
 - Java 8
+- JUnit 5
 
 ## Input
 - Input is stored in `src/main/resources/`
@@ -48,3 +49,9 @@ id: MT4, time: TTH 10:30 - 12:00
 
 ### com.dekal.scheduling.runner.RunWithResult
 - Using this runner to get the final schedule result.
+
+
+## Runners with Junit
+- Test cases are store in `src/test/com/dekal/scheduling`
+- Test cases are running with JUnit 5
+- Test cases input are stored in `src/test/resources/`
